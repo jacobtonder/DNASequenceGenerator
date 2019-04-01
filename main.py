@@ -6,20 +6,21 @@ def main():
     if invalidArguments():
         return
 
-    dnaDict = genDNASequence(int(sys.argv[1]), int(sys.argv[2]))
+    dnaDict = genDNASequence(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
 
     writeSequencesToFile(dnaDict, "output.fasta")
 
 def invalidArguments():
-    if len(sys.argv) != 3:
-        print("Invalid argument length: <sequenceLength> <sequenceNumber>")
+    if len(sys.argv) != 4:
+        print("Invalid argument length: <sequenceNumber> <sequenceLengthStart> <sequenceLengthEnd>")
         return True
 
     try: 
         int(sys.argv[1])
         int(sys.argv[2])
+        int(sys.argv[3])
     except ValueError:
-        print("Invalid argument type: <int> <int>")
+        print("Invalid argument type: <int> <int> <int>")
         return True
 
     return False
@@ -32,11 +33,11 @@ def writeSequencesToFile(dictionary, filePath):
             f.write('\n'.join(textwrap.wrap(v, 80)))
             f.write('\n')
 
-def genDNASequence(length, sequences):
+def genDNASequence(sequences, lengthStart, lengthEnd):
     dnaDict = { }
     for i in range(sequences):
         dnaSequence = ""
-        for _ in range(length):
+        for _ in range(random.randint(lengthStart, lengthEnd)):
             dnaSequence += genDNA(random.randint(0,3))
         dnaTitle = ">Sequence " + str(i) + " of " + str(sequences)
         dnaDict[dnaTitle] = dnaSequence
