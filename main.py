@@ -39,7 +39,7 @@ def genDNASequence(sequences, lengthStart, lengthEnd):
         dnaSequence = ""
         for _ in range(random.randint(lengthStart, lengthEnd)):
             dnaSequence += genDNA(random.randint(0,3))
-        dnaTitle = ">Sequence " + str(i) + " of " + str(sequences)
+        dnaTitle = ">Sequence " + str(i + 1) + " of " + str(sequences)
         dnaDict[dnaTitle] = dnaSequence
 
     return dnaDict
